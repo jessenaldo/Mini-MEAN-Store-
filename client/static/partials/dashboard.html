@@ -1,0 +1,41 @@
+
+<input type="text" placeholder="search..." ng-model="filterProducts">
+
+<div id="showproducts">
+
+	<div class="products" ng-repeat="product in dashboardCtrl.products | limitTo:dashboardCtrl.productLimit | filter:filterProducts" >
+			<img ng-src="{{product.image_url}}">
+			<h5><span ng-bind="product.name"></span></h5>
+			<h5>(<span ng-bind="product.quantity"></span> left)</h5>
+
+	</div>
+	<button ng-click="dashboardCtrl.showMoreProducts()">Show more...</button>
+
+</div>
+
+<hr>
+<br>
+<br>
+
+<table>
+
+<h3>Recent Orders</h3>
+<ul>
+<li ng-repeat="order in dashboardCtrl.orders | orderBy:'-created_date'| limitTo:dashboardCtrl.orderLimit   " >
+	<span ng-bind="order._customer.name"></span> purchased <span ng-bind="order.quantity"></span> <span ng-bind="order.product"></span>...(<span am-time-ago="order.created_date"></span>)
+</li>
+</ul>
+<button ng-click="dashboardCtrl.showMoreOrders()">Show all orders...</button>
+
+<hr>
+<br>
+<br>
+
+<h3>New Customers</h3>
+<ul>
+<li ng-repeat="customer in dashboardCtrl.customers | orderBy:'-created_date' | limitTo:dashboardCtrl.customerLimit ">
+	<span ng-bind="customer.name"></span> joined the store. (<span am-time-ago="customer.created_date"></span>)
+</li>
+</ul>
+<button ng-click="dashboardCtrl.showMoreCustomers()">Show all customers...</button>
+

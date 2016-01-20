@@ -1,0 +1,55 @@
+<style>
+select {
+	border: 1px solid black;
+}
+</style>
+
+
+<h3>Add a new order</h3>
+
+<form>
+Customer: <select
+	ng-options="customer.name for customer in orderCtrl.customers"
+	ng-model="orderCtrl.newOrder.customer">
+	</select>
+
+Product: <select
+	ng-options="product.name for product in orderCtrl.products"
+	ng-model="orderCtrl.newOrder.product"
+	ng-change="orderCtrl.onProductChange()">
+	</select>
+
+
+<div ng-show="orderCtrl.productChanged">
+<select ng-model="orderCtrl.newOrder.quantity" ng-options="i for i in orderCtrl.Range()">
+	
+
+</select>
+	
+
+
+<input type="submit" ng-click="orderCtrl.addOrder()" value="Order">
+</select>
+</div>
+</form>
+
+<hr>
+
+<table>
+
+Search Orders: <input type="text" ng-model="filterOrders">
+
+<tr>
+	<th>Customer Name</th>
+	<th>Product</th>
+	<th>Quantity</th>
+	<th>Date</th>
+</tr>
+<tr ng-repeat="order in orderCtrl.orders | filter:filterOrders | orderBy: 'created_date'">
+	<td><span ng-bind="order._customer.name"></span></td>
+	<td><span ng-bind="order.product"></span></td>
+	<td><span ng-bind="order.quantity"></span></td>
+	<td><span ng-bind="order.created_date | date: 'MMMM dd, yyyy'"></span></td>
+</tr>
+
+

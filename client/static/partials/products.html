@@ -1,0 +1,33 @@
+
+<div id="search bar">
+Search Products: <input type="text" ng-model="productFilter">
+</div>
+
+<div id='form'>
+<form>
+<h3>Add a new product</h3>
+Name: <input type="text" cols="10" ng-model="productCtrl.newProduct.name">
+Image(url): <input type="text" ng-model="productCtrl.newProduct.image_url">
+Description: <textarea rows="4" cols="15" ng-model="productCtrl.newProduct.description"></textarea>
+Initial Quantity: <input type="number" ng-model="productCtrl.newProduct.quantity">
+<input type="submit" ng-click="productCtrl.addProduct()" value="Create">
+</form>
+
+</div>
+
+
+
+
+
+
+<div id="showproducts">
+
+	<div class="products" ng-repeat="product in productCtrl.products | filter:productFilter | limitTo:productCtrl.feedLimit">
+			<img ng-src="{{product.image_url}}">
+			<h5><span ng-bind="product.name"></span></h5>
+			<h5>(<span ng-bind="product.quantity"></span> left)</h5>
+
+	</div>
+	<button ng-click="productCtrl.showMorePosts()">Show More...</button>
+
+</div>
